@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plantes – EnochGarden</title>
+  <style>
+    :root {
+      --orange: #ff6600;
+      --black: #111;
+      --white: #fff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--black);
+      color: var(--white);
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: var(--black);
+      padding: 20px 20px 20px 100px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
+    }
+
+    .logo-container {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      width: 120px;
+      height: 60px;
+      z-index: 10;
+    }
+
+    .logo-container img {
+      width: 150%;
+      height: 150%;
+      object-fit: contain;
+    }
+
+    header h1 {
+      margin: 0;
+      color: var(--orange);
+      flex: 1 1 100%;
+      text-align: center;
+      font-size: 2.5em;
+      user-select: none;
+    }
+
+    nav {
+      margin-top: 10px;
+      flex: 1 1 100%;
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: var(--white);
+      font-weight: bold;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 100%;
+      height: 2px;
+      background: var(--orange);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--orange);
+    }
+
+    nav a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    #rechercheSection {
+      text-align: center;
+      margin: 10px 20px;
+    }
+
+    #barreRecherche {
+      width: 80%;
+      max-width: 400px;
+      padding: 12px 15px;
+      font-size: 1em;
+      border-radius: 30px;
+      border: 2px solid var(--orange);
+      background-color: #1e1e1e;
+      color: var(--white);
+      outline: none;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    #barreRecherche:focus {
+      border-color: #ff8533;
+      box-shadow: 0 0 8px rgba(255, 102, 0, 0.5);
+    }
+
+    .admin-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: var(--orange);
+      transition: transform 0.3s;
+    }
+
+    .admin-btn:hover {
+      transform: rotate(90deg);
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 40px 20px 20px;
+    }
+
+    .product {
+      background-color: #1e1e1e;
+      border: 2px solid var(--orange);
+      border-radius: 10px;
+      margin: 20px;
+      width: 250px;
+      text-align: center;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px var(--orange);
+    }
+
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 1px solid #333;
+    }
+
+    .product h3 {
+      margin: 15px 0 10px 0;
+      color: var(--white);
+    }
+
+    .product p {
+      padding: 0 10px 10px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    .product .price {
+      font-weight: bold;
+      color: var(--orange);
+    }
+
+    .product .category {
+      font-style: italic;
+      font-size: 0.85em;
+      color: #999;
+      margin-bottom: 10px;
+    }
+
+    .voir-plus {
+      display: block;
+      margin: 40px auto 60px;
+      padding: 12px 30px;
+      background-color: var(--orange);
+      color: var(--black);
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: all 0.3s;
+      box-shadow: 0 4px 10px rgba(255, 102, 0, 0.3);
+    }
+
+    .voir-plus:hover {
+      background-color: #e65300;
+      transform: scale(1.05);
+    }
+
+    footer {
+      background-color: #1c1c1c;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.8em;
+      color: #aaa;
+      border-top: 1px solid #333;
+      margin-top: auto;
+    }
+
+    .forest-banner {
+      position: relative;
+      height: 600px;
+      background: url('https://i.postimg.cc/YqFd6KWs/1.jpg') no-repeat center center;
+      background-size: cover;
+    }
+
+    .forest-banner::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 250px;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, var(--cream) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .forest-text {
+      position: absolute;
+      top: 280px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--white);
+      font-size: 3em;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+      z-index: 10;
+      text-align: center;
+      max-width: 90%;
+      animation: fadeInUp 1.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 🔽 Responsive mobile */
+    @media (max-width: 600px) {
+      header {
+        padding: 10px;
+        flex-direction: column;
+      }
+
+      .logo-container {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        width: 50px;
+        height: auto;
+        margin-bottom: 10px;
+      }
+
+      .logo-container img {
+        width: 100%;
+        height: auto;
+      }
+
+      header h1 {
+        position: absolute;
+        top: 10px;
+        left: 120px;
+        font-size: 1.5em;
+      }
+
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+
+      #barreRecherche {
+        width: 90%;
+        max-width: 100%;
+      }
+
+      .product {
+        width: 90%;
+        margin: 10px auto;
+      }
+
+      .forest-text {
+        font-size: 1.5em;
+        top: 200px;
+      }
+
+      .forest-banner {
+        height: 300px;
+      }
+
+      .admin-btn {
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+      }
+    }
+      #pagination button {
+  background-color: #1e1e1e;
+  border: 2px solid var(--orange);
+  color: var(--white);
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#pagination button:hover {
+  background-color: var(--orange);
+  color: var(--black);
+  transform: scale(1.1);
+}
+
+#pagination button.active {
+  background-color: var(--orange);
+  color: var(--black);
+  font-weight: bold;
+}
+
+     #menuToggle {
+  display: none;
+  background-color: var(--orange);
+  color: var(--black);
+  padding: 10px 20px;
+  border: none;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 40px 0;
+  cursor: pointer;
+}
+
+#menuLinks {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#menuLinks a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: var(--white);
+  font-weight: bold;
+  position: relative;
+  transition: color 0.3s;
+}
+
+/* Mobile responsive menu */
+@media (max-width: 600px) {
+  #menuToggle {
+    display: block;
+  }
+
+  #menuLinks {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  #menuLinks.active {
+    display: flex;
+  }
+
+  #menuLinks a {
+    margin: 0;
+  }
+}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="https://i.postimg.cc/B6mNkXsY/logo-enoch-Garden-jpg.png" alt="Logo" />
+    </div>
+    <h1>EnochGarden</h1>
+    <button class="admin-btn" onclick="goToAdmin()">⋯</button>
+    <nav id="menuNav">
+  <button id="menuToggle">☰ Menu</button>
+  <div id="menuLinks">
+    <a href="index.html">Accueil</a>
+    <a href="plantes.html">Plantes</a>
+    <a href="accessoires.html">Accessoires</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+  </header>
+
+  <section id="rechercheSection">
+    <input type="text" id="barreRecherche" placeholder="Rechercher une plante...">
+  </section>
+
+  <section class="products" id="productList">
+    <!-- Toutes les plantes s'afficheront ici -->
+  </section>
+
+  <footer>
+    &copy; 2025 EnochGarden. Tous droits réservés.
+  </footer>
+
+  <script>
+  function goToAdmin() {
+    const code = prompt("Entrez le code d’accès admin :");
+    if (code === "mathys972") {
+      window.location.href = "admin.html";
+    } else {
+      alert("Code incorrect.");
+    }
+  }
+
+  const plantes = JSON.parse(localStorage.getItem('plantes') || '[]');
+  const productList = document.getElementById('productList');
+  const searchInput = document.getElementById("barreRecherche");
+
+  const ITEMS_PER_PAGE = 6;
+  let currentPage = 1;
+  let filteredPlantes = [...plantes];
+
+  function renderPage(page, data) {
+    productList.innerHTML = "";
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    const plantesToShow = data.slice(start, end);
+
+    if (plantesToShow.length === 0) {
+      productList.innerHTML = "<p>Aucune plante trouvée.</p>";
+      return;
+    }
+
+    plantesToShow.forEach(plante => {
+      const div = document.createElement('div');
+      div.className = 'product';
+      div.innerHTML = `
+        <img src="${plante.image}" alt="${plante.nom}">
+        <h3>${plante.nom}</h3>
+        <p class="price">${plante.prix ? plante.prix + ' €' : ''}</p>
+        <p class="category">${plante.categorie || ''}</p>
+        <p>${plante.description}</p>
+      `;
+      productList.appendChild(div);
+    });
+
+    renderPagination(data.length);
+  }
+
+  function renderPagination(totalItems) {
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    const paginationContainer = document.getElementById("pagination");
+    paginationContainer.innerHTML = "";
+
+    if (totalPages <= 1) return;
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement("button");
+      btn.textContent = i;
+      btn.className = i === currentPage ? "active" : "";
+      btn.addEventListener("click", () => {
+        currentPage = i;
+        renderPage(currentPage, filteredPlantes);
+      });
+      paginationContainer.appendChild(btn);
+    }
+  }
+
+  searchInput.addEventListener("input", function () {
+    const recherche = this.value.toLowerCase();
+    filteredPlantes = plantes.filter(plante =>
+      plante.nom.toLowerCase().includes(recherche)
+    );
+    currentPage = 1;
+    renderPage(currentPage, filteredPlantes);
+  });
+
+  // Création du conteneur de pagination
+  const paginationDiv = document.createElement("div");
+  paginationDiv.id = "pagination";
+  paginationDiv.style.textAlign = "center";
+  paginationDiv.style.margin = "20px 0";
+  document.body.insertBefore(paginationDiv, document.querySelector("footer"));
+
+  // Première exécution
+  renderPage(currentPage, filteredPlantes);
+
+  // Menu responsive
+document.getElementById("menuToggle").addEventListener("click", function () {
+  const menu = document.getElementById("menuLinks");
+  menu.classList.toggle("active");
+});
+</script>
+</body>
+</html>
